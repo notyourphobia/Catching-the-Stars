@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class worldGenerator : MonoBehaviour
-{/*
-    public bool isMoving = false;
-    public float speed = 1;*/
+{
+    public playerController playerController;
 
+    public bool isMoving = false;
+    public float worldSpeedMultiplier;
+    public float maxWorldSpeed;
     public Sprite[] backgroundSpriteList;
 
     private bool canCreate = true;
-
-    private float mouseHold;
-    private float mouseHoldSeconds;
-    private float mouseHoldSeconds2;
+    private float playerSpeed;
     private float speed;
 
     void Start()
@@ -23,31 +22,23 @@ public class worldGenerator : MonoBehaviour
 
     void Update()
     {
-        ///////////Move World Based On Speed/////////////
-        if (Input.GetMouseButton(0))
-        {
-            mouseHold += Time.deltaTime;
-            mouseHoldSeconds = mouseHold % 60;
-            mouseHoldSeconds2 = Mathf.Lerp(1 * mouseHoldSeconds, 5 * mouseHoldSeconds, 0.1f);
+        ///GetPlayerSpeed & SetWorldSpeed///
+        playerSpeed = playerController.mouseHold;
+        speed = playerSpeed * worldSpeedMultiplier;
 
-            if (mouseHoldSeconds > 30)
-            {
-                mouseHoldSeconds = 30;
-            }
-            speed =  10 * mouseHoldSeconds;        
-        }
-        else
+        if (speed > maxWorldSpeed)
         {
-            mouseHold = 0f;
-        }
+            speed = maxWorldSpeed;
+        } 
+      
         ///Create New Tile///
         Transform worldTitleTransfrom = gameObject.GetComponent<Transform>().transform.GetChild(0).GetComponent<Transform>();
    
         ///Move Tile///
-  /*      if (isMoving)
-        {*/
-            worldTitleTransfrom.position += transform.up * -speed * Time.deltaTime;
-      /*  }*/
+        if (isMoving)
+        {
+            worldTitleTransfrom.position += -transform.up * speed * Time.deltaTime;
+        }
         ///Dstroy Current Tile And Create A New One///
         if (backgroundSpriteList.Length == 1)
         {

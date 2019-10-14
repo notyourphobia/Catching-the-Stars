@@ -381,6 +381,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2187146865745783046, guid: 34398b41c6d894348bc8d53cf76c7b13,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2187146865745783044, guid: 34398b41c6d894348bc8d53cf76c7b13,
         type: 3}
       propertyPath: maxRotation
@@ -391,8 +396,30 @@ PrefabInstance:
       propertyPath: speed
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 2187146865745783044, guid: 34398b41c6d894348bc8d53cf76c7b13,
+        type: 3}
+      propertyPath: maxHoldSeconds
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187146865745783044, guid: 34398b41c6d894348bc8d53cf76c7b13,
+        type: 3}
+      propertyPath: speedDecrease
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34398b41c6d894348bc8d53cf76c7b13, type: 3}
+--- !u!114 &1927954880 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2187146865745783044, guid: 34398b41c6d894348bc8d53cf76c7b13,
+    type: 3}
+  m_PrefabInstance: {fileID: 1059011553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020d81ad774655046b634615712bce9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &448118096413449693
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -463,6 +490,21 @@ PrefabInstance:
     - target: {fileID: 448118096960814111, guid: 2e485ae2b8793e54fa8914401e701b38,
         type: 3}
       propertyPath: speed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 448118096960814111, guid: 2e485ae2b8793e54fa8914401e701b38,
+        type: 3}
+      propertyPath: worldSpeedMultiplier
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 448118096960814111, guid: 2e485ae2b8793e54fa8914401e701b38,
+        type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1927954880}
+    - target: {fileID: 448118096960814111, guid: 2e485ae2b8793e54fa8914401e701b38,
+        type: 3}
+      propertyPath: maxWorldSpeed
       value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
