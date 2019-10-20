@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour
     private Rigidbody2D characterController;
 
     private Vector2 direction;
+    private bool moveLeft = true,moveRight = true;
    
 
     void Start()
@@ -25,16 +26,42 @@ public class playerController : MonoBehaviour
             if (Math.Abs(playerPosition.x - mousePosition.x) < 1)
             {
                 Vector3 position = this.transform.position;
-                Vector2 movePosition = new Vector2(Input.GetAxis("Mouse X"), playerPosition.y);
-                position.x += movePosition.x;
-                this.transform.position = position;
+                if (Input.GetAxis("Mouse X") < 0 && moveLeft)
+                {
+                    movePlayer(playerPosition, position);
+                }
+                if (Input.GetAxis("Mouse X") > 0 && moveRight)
+                {
+                    movePlayer(playerPosition, position);
+                }
             }
         }
     }
 
-    void OnCollisionEnter(Collision other)
+    private void movePlayer(Vector3 playerPosition, Vector3 position)
     {
-        Debug.Log(other.gameObject.name);
-        
+        Vector2 movePosition = new Vector2(Input.GetAxis("Mouse X"), playerPosition.y);
+        position.x += movePosition.x;
+        this.transform.position = position;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Trigger 2d detected" + collision.gameObject.name);
+        if (collision.gameObject.name.Equals("WallsLeft"))
+        {
+            moveLeft = false;
+        }
+        if (collision.gameObject.name.Equals("WallsRight"))
+        {
+            moveRight = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Exit trigger 2d" + collision.gameObject.name);
+        moveLeft = true;
+        moveRight = true;
     }
 }
