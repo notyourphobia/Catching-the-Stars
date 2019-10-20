@@ -1,71 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
 {
-    public float speed;
 
-    public float maxRotation;
-    public float maxHoldSeconds;
-    public float speedDecrease;
+    private Rigidbody2D characterController;
 
-    public float mouseHold;
-
-    private Rigidbody2D playerRigidBody;
-    private Vector3 mousePosition;
     private Vector2 direction;
-    private float rotation;
+   
 
     void Start()
     {
-        playerRigidBody = GetComponent<Rigidbody2D>();
-        mouseHold = 0;
+        characterController = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        rotation = transform.rotation.eulerAngles.z;
-
-        if (Input.GetMouseButton(0))
+        if (Input.GetButton("Fire1"))
         {
-            ///Get Mouse On Screen///
-            Vector2 mouseDirection;
-            
-            mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            direction = (mousePosition - transform.position).normalized;
-
-            mouseDirection = new Vector2(direction.x * speed, direction.y * speed);
-            ///Move Player To Point///
-            playerRigidBody.velocity = mouseDirection;
-
-            transform.up = direction;
-            ///Rotation Controls///W I P///
-            if (transform.rotation.eulerAngles.z > maxRotation)
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 playerPosition = transform.position;
+            if (Math.Abs(playerPosition.x - mousePosition.x) < 1)
             {
-                transform.localRotation = Quaternion.EulerAngles(0, 0, maxRotation);
+                Vector3 position = this.transform.position;
+                Vector2 movePosition = new Vector2(Input.GetAxis("Mouse X"), playerPosition.y);
+                position.x += movePosition.x;
+                this.transform.position = position;
             }
-            else if (rotation < -maxRotation)
-            {
-                transform.localRotation = Quaternion.EulerAngles(0, 0, -maxRotation);
-            }
-            ///Mouse Hold Clock///
-
-            mouseHold += Time.deltaTime;
-            if (mouseHold > maxHoldSeconds)
-            {
-                mouseHold = maxHoldSeconds;
-            }
-        } else
-        {
-            ///Stop And Decrease Everything///W I P///
-            mouseHold -= speedDecrease * Time.deltaTime;
-            if (mouseHold < 0)
-            {
-                mouseHold = 0;
-            }
-            playerRigidBody.velocity = Vector2.zero;
-            transform.localRotation = Quaternion.EulerAngles(0, 0, 0);
         }
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        Debug.Log(other.gameObject.name);
+        
     }
 }

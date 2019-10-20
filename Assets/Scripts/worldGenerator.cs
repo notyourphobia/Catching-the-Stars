@@ -8,7 +8,7 @@ public class worldGenerator : MonoBehaviour
 
     public bool isMoving = false;
     public float worldSpeedMultiplier;
-    public float maxWorldSpeed;
+   
     public Sprite[] backgroundSpriteList;
 
     private bool canCreate = true;
@@ -22,14 +22,8 @@ public class worldGenerator : MonoBehaviour
 
     void Update()
     {
-        ///GetPlayerSpeed & SetWorldSpeed///
-        playerSpeed = playerController.mouseHold;
-        speed = playerSpeed * worldSpeedMultiplier;
-
-        if (speed > maxWorldSpeed)
-        {
-            speed = maxWorldSpeed;
-        } 
+        
+ 
       
         ///Create New Tile///
         Transform worldTitleTransfrom = gameObject.GetComponent<Transform>().transform.GetChild(0).GetComponent<Transform>();
